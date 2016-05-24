@@ -150,7 +150,7 @@ def _extract_jdk_version(java_version_out):
     match = re.search(r'Runtime Environment \(build (.*?)\)', java_version_out)
     if match is None:
         return None
-    version, build = match.group(1).split('-')
+    version, build = match.group(1).split('-', 1)
     release = version.split('_')[0].split('.')[1]
     update = str(int(version.split('_')[1]))
     return '%(release)su%(update)s-%(build)s' % locals()
