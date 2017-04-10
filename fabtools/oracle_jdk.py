@@ -55,12 +55,11 @@ def install_from_oracle_site(version=DEFAULT_VERSION):
     filename = 'jdk-%(release)s-linux-%(arch)s.%(extension)s' % locals()
 
     token = JDK_VERSION_TOKEN_MAP.get(version)
-    if token is not None:
-      filename = '%(token)s/%(filename)s' % locals()
+    version_path = "%(version)s/%(token)s" % locals() if token is not None else version
 
     download_path = posixpath.join('/tmp', filename)
     url = 'http://download.oracle.com/otn-pub/java/jdk/'\
-          '%(version)s/%(filename)s' % locals()
+          '%(version_path)s/%(filename)s' % locals()
 
     _download(url, download_path)
 
