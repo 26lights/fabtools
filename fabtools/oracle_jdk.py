@@ -22,7 +22,7 @@ from fabtools.utils import run_as_root
 
 DEFAULT_VERSION = '7u25-b15'
 
-VERSION_TOKEN_MAP= {
+JDK_VERSION_TOKEN_MAP = {
   '8u121-b13': 'e9e7ea248e2c4826b92b3f075a80e441'
 }
 
@@ -54,7 +54,7 @@ def install_from_oracle_site(version=DEFAULT_VERSION):
     extension = 'bin' if self_extracting_archive else 'tar.gz'
     filename = 'jdk-%(release)s-linux-%(arch)s.%(extension)s' % locals()
 
-    token = VERSION_TOKEN_MAP.get(version)
+    token = JDK_VERSION_TOKEN_MAP.get(version)
     if token is not None:
       filename = '%(token)s/%(filename)s' % locals()
 
@@ -84,9 +84,9 @@ def install_from_oracle_site(version=DEFAULT_VERSION):
     # Set up link
     link_path = posixpath.join(prefix, 'jdk')
     if is_link(link_path):
+
         run_as_root('rm -f %s' % quote(link_path))
     run_as_root('ln -s %s %s' % (quote(install_dir), quote(link_path)))
-
     # Remove archive
     run('rm -f %s' % quote(download_path))
 
