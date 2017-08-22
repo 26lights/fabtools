@@ -23,8 +23,9 @@ from fabtools.utils import run_as_root
 DEFAULT_VERSION = '7u25-b15'
 
 JDK_VERSION_TOKEN_MAP = {
-  '8u121-b13': 'e9e7ea248e2c4826b92b3f075a80e441',
-  '8u131-b11': 'd54c1d3a095b4ff2b6607d096fa80163'
+    '8u121-b13': 'e9e7ea248e2c4826b92b3f075a80e441',
+    '8u131-b11': 'd54c1d3a095b4ff2b6607d096fa80163',
+    '8u144-b01': '090f390dda5b47b9b721c7dfaa008135'
 }
 
 
