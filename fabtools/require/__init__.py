@@ -1,6 +1,7 @@
 # Keep imports sorted alphabetically
 import fabtools.require.arch
 import fabtools.require.apache
+import fabtools.require.bazaar
 import fabtools.require.conda
 import fabtools.require.curl
 import fabtools.require.deb
@@ -9,6 +10,7 @@ import fabtools.require.files
 import fabtools.require.git
 import fabtools.require.mercurial
 import fabtools.require.mysql
+import fabtools.require.network
 import fabtools.require.nginx
 import fabtools.require.nodejs
 import fabtools.require.openvz

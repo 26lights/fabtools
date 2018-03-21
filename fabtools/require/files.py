@@ -9,9 +9,14 @@ directories.
 
 from pipes import quote
 from tempfile import mkstemp
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 import hashlib
 import os
+
+import six
+
+if six.PY2:
+    from future_builtins import oct  # NOQA isort:skip
 
 from fabric.api import hide, put, run, settings
 
@@ -144,7 +149,7 @@ def file(path=None, contents=None, source=None, url=None, md5=None,
             path = os.path.basename(urlparse(url).path)
 
         if not is_file(path) or md5 and md5sum(path) != md5:
-            func('wget --progress=dot:mega %(url)s -O %(path)s' % locals())
+            func('wget --progress=dot:mega "%(url)s" -O "%(path)s"' % locals())
 
     # 3) A local filename, or a content string, is specified
     else:
@@ -190,9 +195,10 @@ def file(path=None, contents=None, source=None, url=None, md5=None,
 
     # Ensure correct mode
     if use_sudo and mode is None:
-        mode = oct(0666 & ~int(umask(use_sudo=True), base=8))
+        mode = 0o666 & ~int(umask(use_sudo=True), base=8)
+
     if mode and _mode(path, use_sudo) != mode:
-        func('chmod %(mode)s "%(path)s"' % locals())
+        func('chmod %(mode)o "%(path)s"' % locals())
 
 
 def template_file(path=None, template_contents=None, template_source=None,
