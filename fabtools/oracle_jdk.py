@@ -46,6 +46,11 @@ def install_from_oracle_site(version=DEFAULT_VERSION):
     prefix = '/opt'
 
     release, build = version.split('-')
+    if "/" in build:
+        build, token = build.split("/")
+    else:
+        token = JDK_VERSION_TOKEN_MAP.get(version)
+
     major, update = release.split('u')
     if len(update) == 1:
         update = '0' + update
@@ -57,8 +62,7 @@ def install_from_oracle_site(version=DEFAULT_VERSION):
     extension = 'bin' if self_extracting_archive else 'tar.gz'
     filename = 'jdk-%(release)s-linux-%(arch)s.%(extension)s' % locals()
 
-    token = JDK_VERSION_TOKEN_MAP.get(version)
-    version_path = "%(version)s/%(token)s" % locals() if token is not None else version
+    version_path = "%(release)s-%(build)s/%(token)s" % locals() if token is not None else version
 
     download_path = posixpath.join('/tmp', filename)
     url = 'http://download.oracle.com/otn-pub/java/jdk/'\
